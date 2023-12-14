@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 200px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #3498db; 
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9; 
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db; 
+            color: white;
+        }
+
+        #backButton {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #3498db; 
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #backButton:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Payroll System</h2>
+
+    <label for="empName">Employee Name:</label>
+    <input type="text" id="empName" placeholder="Enter name">
+
+    <label for="daysWorked">Days Worked:</label>
+    <input type="number" id="daysWorked" placeholder="Enter days worked">
+
+    <label for="dailyRate">Daily Rate:</label>
+    <input type="number" id="dailyRate" placeholder="Enter daily rate">
+
+    <label for="deductionAmount">Deduction Amount:</label>
+    <input type="number" id="deductionAmount" placeholder="Enter deduction amount">
+
+    <button onclick="addEmployee()">Add Employee</button>
+
+    <label for="deleteLineNumber">Delete Line Number:</label>
+    <input type="number" id="deleteLineNumber" placeholder="Enter line number">
+
+    <button onclick="deleteEmployee()">Delete Employee</button>
+
+    <table id="payrollTable">
+        <tr>
+            <th>No.</th>
+            <th>Employee Name</th>
+            <th>Days Worked</th>
+            <th>Daily Rate</th>
+            <th>Gross Pay</th>
+            <th>Deduction Amount</th>
+            <th>Net Pay</th>
+        </tr>
+    </table>
+
+    <button id="backButton" onclick="goToHomePage()">Back to Home Page</button>
+
+    <script>
+        let payrollList = [];
+
+        function addEmployee() {
+            const empName = document.getElementById('empName').value;
+            const daysWorked = parseInt(document.getElementById('daysWorked').value);
+            const dailyRate = parseFloat(document.getElementById('dailyRate').value);
+            const deductionAmount = parseFloat(document.getElementById('deductionAmount').value);
+
+            const grossPay = daysWorked * dailyRate;
+            const netPay = grossPay - deductionAmount;
+
+            payrollList.push({
+                name: empName,
+                daysWorked,
+                dailyRate,
+                grossPay,
+                deductionAmount,
+                netPay,
+            });
+
+            displayPayroll();
+        }
+
+        function deleteEmployee() {
+            const deleteLineNumber = parseInt(document.getElementById('deleteLineNumber').value);
+
+            if (deleteLineNumber >= 1 && deleteLineNumber <= payrollList.length) {
+                payrollList.splice(deleteLineNumber - 1, 1);
+                displayPayroll();
+            } else {
+                alert("Invalid line number. Please enter a valid line number.");
+            }
+        }
+
+        function displayPayroll() {
+            const table = document.getElementById('payrollTable');
+            table.innerHTML = "<tr><th>No.</th><th>Employee Name</th><th>Days Worked</th><th>Daily Rate</th><th>Gross Pay</th><th>Deduction Amount</th><th>Net Pay</th></tr>";
+
+            payrollList.forEach((employee, index) => {
+                const { name, daysWorked, dailyRate, grossPay, deductionAmount, netPay } = employee;
+                const row = table.insertRow(-1);
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+                const cell3 = row.insertCell(2);
+                const cell4 = row.insertCell(3);
+                const cell5 = row.insertCell(4);
+                const cell6 = row.insertCell(5);
+                const cell7 = row.insertCell(6);
+
+                cell1.innerHTML = index + 1;
+                cell2.innerHTML = name;
+                cell3.innerHTML = daysWorked;
+                cell4.innerHTML = dailyRate;
+                cell5.innerHTML = grossPay.toFixed(2);
+                cell6.innerHTML = deductionAmount.toFixed(2);
+                cell7.innerHTML = netPay.toFixed(2);
+            });
+        }
+
+        function goToHomePage() {
+            window.location.href = "index.html"; 
+        }
+    </script>
+</body>
+</html>
