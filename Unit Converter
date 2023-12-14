@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        p {
+            font-weight: bold;
+            margin: 0;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Unit Converter</h2>
+
+    <label for="fahrenheit">Fahrenheit:</label>
+    <input type="number" id="fahrenheit" placeholder="Enter Fahrenheit">
+
+    <button onclick="convertToFahrenheit()">Convert to Celsius</button>
+
+    <p id="resultCelsius"></p>
+
+    <label for="celsius">Celsius:</label>
+    <input type="number" id="celsius" placeholder="Enter Celsius">
+
+    <button onclick="convertToCelsius()">Convert to Fahrenheit</button>
+
+    <p id="resultFahrenheit"></p>
+
+    <label for="meters">Meters:</label>
+    <input type="number" id="meters" placeholder="Enter Meters">
+
+    <button onclick="convertToFeet()">Convert to Feet</button>
+
+    <p id="resultFeet"></p>
+
+    <label for="feet">Feet:</label>
+    <input type="number" id="feet" placeholder="Enter Feet">
+
+    <button onclick="convertToMeters()">Convert to Meters</button>
+
+    <p id="resultMeters"></p>
+
+    <a href="index.html">Back to Homepage</a><br><br>
+
+    <script>
+        function convertToFahrenheit() {
+            var fahrenheit = parseFloat(document.getElementById("fahrenheit").value);
+            var celsius = (fahrenheit - 32) * (5 / 9);
+            document.getElementById("resultCelsius").innerHTML = "Result in Celsius: " + celsius.toFixed(2) + " °C";
+        }
+
+        function convertToCelsius() {
+            var celsius = parseFloat(document.getElementById("celsius").value);
+            var fahrenheit = (celsius * (9 / 5)) + 32;
+            document.getElementById("resultFahrenheit").innerHTML = "Result in Fahrenheit: " + fahrenheit.toFixed(2) + " °F";
+        }
+
+        function convertToFeet() {
+            var meters = parseFloat(document.getElementById("meters").value);
+            var feet = meters * 3.28084;
+            document.getElementById("resultFeet").innerHTML = "Result in Feet: " + feet.toFixed(2) + " ft";
+        }
+
+        function convertToMeters() {
+            var feet = parseFloat(document.getElementById("feet").value);
+            var meters = feet / 3.28084;
+            document.getElementById("resultMeters").innerHTML = "Result in Meters: " + meters.toFixed(2) + " m";
+        }
+    </script>
+</body>
+
+</html>
