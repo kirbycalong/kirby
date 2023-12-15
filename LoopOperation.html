@@ -1,37 +1,126 @@
-document.getElementById('calculateButton').addEventListener('click', function () {
-  var n = parseInt(document.getElementById('numberInput').value);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Looping</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
 
+        h2 {
+            color: #3498db; /* Blue color for headers */
+        }
 
-  var factorial = 1;
-  var i = 1;
-  while (i <= n) {
-      factorial *= i;
-      i++;
-  }
+        label {
+            font-weight: bold;
+            color: #555;
+        }
 
+        input {
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 50px;
+            box-sizing: border-box;
+        }
 
-  var sum = 0;
-  var j = 1;
-  do {
-      sum += j;
-      j++;
-  } while (j <= n);
+        button {
+            padding: 10px;
+            background-color: #3498db; /* Blue color for buttons */
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
+        button:hover {
+            background-color: #2980b9; /* Darker blue on hover */
+        }
 
-  var total = 0;
-  for (var k = 1; k <= n; k++) {
-      total += k;
-  }
-  var average = total / n;
+        div {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
 
+        #backButton {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #3498db; /* Blue color for back button */
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-  document.getElementById('result').innerHTML =
-      <br><strong>${n}th Factorial:</strong> ${factorial}<br> +
-      <strong>Sum of the first ${n} numbers:</strong> ${sum}<br> +
-      <strong>Average of the first ${n} numbers:</strong> ${average.toFixed(2)};
-});
+        #backButton:hover {
+            background-color: #2980b9; /* Darker blue on hover for back button */
+        }
+    </style>
+</head>
+<body>
 
-document.getElementById('clearButton').addEventListener('click', function () {
-  document.getElementById('numberInput').value = '';
-  document.getElementById('result').innerHTML = '';
-});
+    <h2>Number Operations</h2>
+
+    <label for="inputNumber">Enter an integer (n):</label>
+    <input type="number" id="inputNumber" placeholder="Enter n">
+
+    <br>
+
+    <button onclick="calculateOperations()">Calculate Operations</button>
+
+    <div id="outputResults"></div>
+
+    <button id="backButton" onclick="goToHomePage()">Back to Homepage</button>
+
+    <script>
+        function calculateOperations() {
+            const n = parseInt(document.getElementById('inputNumber').value);
+
+            if (!isNaN(n) && n >= 0) {
+                // 1. The nth factorial (Using a While Loop)
+                let factorial = 1;
+                let i = 1;
+                while (i <= n) {
+                    factorial *= i;
+                    i++;
+                }
+
+                // 2. The sum of the first n numbers (Using a Do While Loop)
+                let sum = 0;
+                let j = 1;
+                do {
+                    sum += j;
+                    j++;
+                } while (j <= n);
+
+                // 3. The Average of the first n numbers (Using a For Loop)
+                let total = 0;
+                for (let k = 1; k <= n; k++) {
+                    total += k;
+                }
+                const average = total / n;
+
+                // Display the results
+                const outputResults = document.getElementById('outputResults');
+                outputResults.innerHTML = `
+                    <p>1. The ${n}th factorial is: ${factorial}</p>
+                    <p>2. The sum of the first ${n} numbers is: ${sum}</p>
+                    <p>3. The average of the first ${n} numbers is: ${average.toFixed(2)}</p>
+                `;
+            } else {
+                alert("Please enter a non-negative integer.");
+            }
+        }
+
+        function goToHomePage() {
+            window.location.href = "index.html"; // Replace with the actual file path
+        }
+    </script>
+
+</body>
+</html>
